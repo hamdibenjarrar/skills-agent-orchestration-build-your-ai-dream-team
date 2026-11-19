@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Pulse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Project Pulse</h1>
+    <p class="tagline">A quick look at what Mona's team is working on.</p>
+  </header>
+  <main class="dashboard" id="dashboard" aria-live="polite">
+    <p class="loading">Loading projects...</p>
+  </main>
+  <script>
+    function slug(value) {
+      return String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    }
+
+    function renderProject(project) {
+      const card = document.createElement("article");
+      card.className = "project-card";
+      card.innerHTML = `
+        <header class="card-header">
+          <h2></h2>
+          <span class="badge status status-${slug(project.status)}"></span>
+        </header>
+        <p class="summary"></p>
+        <dl class="details">
+          <div><dt>Owner</dt><dd class="owner"></dd></div>
+          <div><dt>Recent activity</dt><dd class="recent-activity"></dd></div>
+          <div><dt>Priority</dt><dd><span class="badge priority priority-${slug(project.priority)}"></span></dd></div>
+        </dl>`;
+      card.querySelector("h2").textContent = project.name;
+      card.querySelector(".status").textContent = project.status;
+      card.querySelector(".summary").textContent = project.summary || "";
+      card.querySelector(".owner").textContent = project.owner;
+      card.querySelector(".recent-activity").textContent = project.recentActivity;
+      card.querySelector(".priority").textContent = project.priority;
+      return card;
+    }
+
+    fetch("project-data.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        const dashboard = document.getElementById("dashboard");
+        dashboard.innerHTML = "";
+        data.projects.forEach((project) => dashboard.appendChild(renderProject(project)));
+      })
+      .catch(() => {
+        document.getElementById("dashboard").innerHTML =
+          '<p class="error">Project data could not be loaded. Serve the app folder and open index.html.</p>';
+      });
+  </script>
+</body>
+</html>

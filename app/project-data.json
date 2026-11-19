@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "name": "Octo Docs Refresh",
+      "owner": "Mona",
+      "status": "On track",
+      "recentActivity": "Merged the new getting started guide",
+      "priority": "High",
+      "summary": "Rewrite the contributor docs so new people can ship a first change in one day."
+    },
+    {
+      "name": "Actions Cache Cleanup",
+      "owner": "Hubot",
+      "status": "At risk",
+      "recentActivity": "Found two workflows with stale cache keys",
+      "priority": "Medium",
+      "summary": "Reduce build times by fixing cache keys across the main workflows."
+    },
+    {
+      "name": "Accessibility Audit",
+      "owner": "Copilot",
+      "status": "Blocked",
+      "recentActivity": "Waiting on design review for color tokens",
+      "priority": "High",
+      "summary": "Bring every public page to WCAG AA contrast and keyboard support."
+    },
+    {
+      "name": "Release Notes Bot",
+      "owner": "Octocat",
+      "status": "Done",
+      "recentActivity": "Shipped the weekly summary post",
+      "priority": "Low",
+      "summary": "Draft release notes automatically from merged pull requests."
+    }
+  ]
+}
